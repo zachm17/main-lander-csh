@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>Apple Transfer</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #1D1D1F;
+            --accent: #FFFFFF;
+            --gradient: linear-gradient(135deg, #1D1D1F, #000000);
+            --card-bg: rgba(28, 28, 30, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --glow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, 'SF Pro Display', sans-serif;
+        }
+
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 30px 20px 100px;
+        }
+
+        .header-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            animation: fadeSlideUp 1s ease-out;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            width: 70px;
+            height: auto;
+            display: block;
+            margin: 0 auto 35px;
+            filter: brightness(0) invert(1);
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+
+        .amount-wrapper {
+            position: relative;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .amount {
+            font-size: 84px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            letter-spacing: -2px;
+            animation: glowPulse 2s infinite;
+        }
+
+        .amount-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 40px 0 20px;
+        }
+
+        .stat-box {
+            background: var(--glass-bg);
+            padding: 25px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .steps-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            animation: fadeSlideUp 1.2s ease-out;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            padding: 25px;
+            background: var(--glass-bg);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            color: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+
+        .step-content h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .step-content p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .claim-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: #000000;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            max-width: calc(100% - 40px);
+            width: 480px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .claim-btn:hover {
+            transform: translateX(-50%) translateY(-3px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .notification {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150%);
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            width: calc(100% - 40px);
+            max-width: 420px;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .notif-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .notification-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .users-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pulse::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
+        @keyframes fadeSlideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @media (max-width: 480px) {
+            .amount { font-size: 64px; }
+            .logo { width: 60px; }
+            .step-content h3 { font-size: 18px; }
+            .step-content p { font-size: 14px; }
+            .claim-btn { font-size: 16px; padding: 18px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-card">
+            <img src="https://i.imgur.com/WHweIA0.png" alt="Apple" class="logo">
+            <div class="amount-wrapper">
+                <div class="amount" id="amount">$0.00</div>
+                <div class="amount-label">Available Balance</div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="timer">15:00</div>
+                    <div class="stat-label">Time Left</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">
+                        <div class="users-wrapper">
+                            <div class="pulse"></div>
+                            <span id="users">238</span>
+                        </div>
+                    </div>
+                    <div class="stat-label">Online Now</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="steps-card">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Verify Identity</h3>
+                    <p>Quick Apple ID verification process</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Secure Transfer</h3>
+                    <p>Confirm details with Apple Pay</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Instant Access</h3>
+                    <p>Receive funds to your Apple Cash</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="claim-btn" id="claimBtn">Access Funds →</button>
+
+    <div class="notification" id="notification">
+        <div class="notif-icon">
+            <img src="https://i.imgur.com/WHweIA0.png" alt="Apple" style="width: 20px; filter: brightness(0);">
+        </div>
+        <div class="notification-text"><span id="notifName"></span> just received $750!</div>
+    </div>
+
+    <script>
+        const animateAmount = () => {
+            const el = document.getElementById('amount');
+            const final = 750;
+            const duration = 2000;
+            const steps = 60;
+            const increment = final / steps;
+            let current = 0;
+            let step = 0;
+
+            const interval = setInterval(() => {
+                step++;
+                current = Math.min(final, step * increment);
+                el.textContent = '$' + current.toFixed(2);
+                if (current >= final) clearInterval(interval);
+            }, duration / steps);
+        };
+
+        const startTimer = () => {
+            let time = 900;
+            const timerEl = document.getElementById('timer');
+            
+            const interval = setInterval(() => {
+                time--;
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                if (time <= 0) clearInterval(interval);
+            }, 1000);
+        };
+
+        const updateUsers = () => {
+            const el = document.getElementById('users');
+            setInterval(() => {
+                const base = 238;
+                const variation = Math.floor(Math.random() * 15) - 5;
+                el.textContent = base + variation;
+            }, 2000);
+        };
+
+        const names = [
+            'Michael S.', 'Sarah J.', 'David K.', 'Emily R.', 'Thomas M.',
+            'Jessica L.', 'Robert P.', 'Laura B.', 'William H.', 'Rachel N.',
+            'Christopher A.', 'Amanda W.', 'Daniel T.', 'Michelle C.', 'James D.'
+        ];
+        
+        const showNotification = (name) => {
+            const notif = document.getElementById('notification');
+            document.getElementById('notifName').textContent = name;
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 3000);
+        };
+
+        const startNotifications = () => {
+            setInterval(() => {
+                const name = names[Math.floor(Math.random() * names.length)];
+                showNotification(name);
+            }, 4000);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            animateAmount();
+            startTimer();
+            updateUsers();
+            startNotifications();
+            
+            document.getElementById('claimBtn').onclick = () => {
+                window.location.href = 'https://glctrk.org/aff_c?offer_id=2596&aff_id=23122&source=finishbeccarev';
+            };
+        });
+    </script>
+</body>
+</html>

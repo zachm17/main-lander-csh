@@ -141,12 +141,16 @@
         .step {
             display: flex;
             align-items: center;
-            padding: 25px;
+            padding: 20px;
             background: var(--glass-bg);
             border-radius: 16px;
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
         }
 
         .step:hover {
@@ -169,16 +173,14 @@
         }
 
         .step-content h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
+            font-size: 18px;
+            margin-bottom: 0;
             color: var(--text-primary);
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        .step-content p {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.6;
+        .bold {
+            font-weight: 700;
         }
 
         .claim-btn {
@@ -301,8 +303,7 @@
         @media (max-width: 480px) {
             .amount { font-size: 64px; }
             .logo { width: 60px; }
-            .step-content h3 { font-size: 18px; }
-            .step-content p { font-size: 14px; }
+            .step-content h3 { font-size: 16px; }
             .claim-btn { font-size: 16px; padding: 18px 30px; }
         }
     </style>
@@ -337,22 +338,25 @@
             <div class="step">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <h3>Verify Identity</h3>
-                    <p>Quick Apple ID verification process</p>
+                    <h3>Answer the questions below</h3>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h3>Secure Transfer</h3>
-                    <p>Confirm details with Apple Pay</p>
+                    <h3>Enter <span class="bold">basic</span> details</h3>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                    <h3>Instant Access</h3>
-                    <p>Receive funds to your Apple Cash</p>
+                    <h3>Complete <span class="bold">3-5 deals</span> (IMPORTANT!)</h3>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Get your <span class="bold">credit</span> and repeat <span class="bold">anytime!</span></h3>
                 </div>
             </div>
         </div>
@@ -434,10 +438,9 @@
             startNotifications();
             
             document.getElementById('claimBtn').onclick = () => {
-                window.location.href = 'https://glctrk.org/aff_c?offer_id=2596&aff_id=23122&source=halesspreadrev';
+                window.location.href = 'https://glctrk.org/aff_c?offer_id=1600&aff_id=23122&source=aubspreadsals';
             };
         });
     </script>
 </body>
-
 </html>

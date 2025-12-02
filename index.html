@@ -23,6 +23,7 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            display: none;
         }
 
         .timer-box {
@@ -85,34 +86,11 @@
             display: none;
             max-width: 600px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .active {
             display: block;
-        }
-
-        .notification {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: opacity 0.5s ease;
-        }
-
-        .notification .money {
-            font-size: 20px;
-        }
-
-        .notification .earned {
-            color: #00D632;
-        }
-
-        .notification .time {
-            margin-left: auto;
-            color: rgba(255, 255, 255, 0.7);
         }
 
         .logo {
@@ -125,6 +103,13 @@
         h1 {
             text-align: center;
             color: #00D632;
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        .main-heading {
+            color: #00D632;
+            font-size: 24px;
             margin: 20px 0;
         }
     </style>
@@ -148,15 +133,8 @@
 
     <!-- Main Lander Section -->
     <div class="mainlander">
-        <div class="notification" id="notification" style="opacity: 0;">
-            <span class="money">💸</span>
-            <span><span id="notif-name"></span> completed <span id="notif-deals"></span> deals and</span>
-            <span class="earned">earned $<span id="notif-amount"></span></span>
-            <span class="time">· <span id="notif-time"></span></span>
-        </div>
-
         <img src="https://i.imgur.com/fjBfl8X.png" alt="Cash" class="logo">
-        <h1>Get started below to claim your Cash reward</h1>
+        <h1 class="main-heading">Get started below to claim your Cash reward</h1>
     </div>
 
     <script>
@@ -184,39 +162,9 @@
             }, 1000);
         }
 
-        // Notification functionality
-        const names = [
-            "James", "Emma", "Michael", "Sophia", "William", "Olivia", "John", "Ava",
-            "David", "Isabella", "Richard", "Mia", "Joseph", "Charlotte", "Thomas"
-        ];
-
-        function generateAmount() {
-            return (Math.random() * (750 - 500) + 500).toFixed(2);
-        }
-
-        function generateTime() {
-            const times = ["just now", "1 minute ago", "2 minutes ago", "3 minutes ago", "5 minutes ago"];
-            return times[Math.floor(Math.random() * times.length)];
-        }
-
-        function updateNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.opacity = '0';
-
-            setTimeout(() => {
-                document.getElementById('notif-name').textContent = names[Math.floor(Math.random() * names.length)];
-                document.getElementById('notif-amount').textContent = generateAmount();
-                document.getElementById('notif-time').textContent = generateTime();
-                document.getElementById('notif-deals').textContent = Math.floor(Math.random() * 3) + 2;
-                notification.style.opacity = '1';
-            }, 500);
-        }
-
         function showMainLander() {
             document.querySelector('.prelander').classList.remove('active');
             document.querySelector('.mainlander').classList.add('active');
-            setTimeout(updateNotification, 100);
-            setInterval(updateNotification, 4000);
         }
 
         // Start timer when page loads

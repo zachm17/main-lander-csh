@@ -13,17 +13,17 @@
         }
 
         body {
-            background: #000000;
+            background: #0a0a0f;
             color: white;
             min-height: 100vh;
             padding: 20px;
         }
 
+        /* Prelander Styles */
         .prelander {
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
-            display: none;
         }
 
         .timer-box {
@@ -82,35 +82,198 @@
             transform: translateY(-2px);
         }
 
+        /* Main Lander Styles */
         .mainlander {
             display: none;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
         }
 
-        .active {
-            display: block;
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .notification {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.5s ease;
+        }
+
+        .notification .money {
+            font-size: 20px;
+        }
+
+        .notification .earned {
+            color: #00D632;
+        }
+
+        .notification .time {
+            margin-left: auto;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .logo {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             margin: 20px auto;
             display: block;
         }
 
         h1 {
             text-align: center;
-            color: #00D632;
-            margin: 20px 0;
             font-size: 32px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #00D632, #00FF41);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
         }
 
-        .main-heading {
-            color: #00D632;
-            font-size: 24px;
+        .progress-bar {
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 80%;
+            height: 100%;
+            background: #00D632;
+            border-radius: 15px;
+        }
+
+        .progress-amount {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+        }
+
+        .steps {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
             margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-check {
+            width: 24px;
+            height: 24px;
+            background: #00D632;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .bonus-box {
+            background: rgba(0, 214, 50, 0.1);
+            border: 1px solid #00D632;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .bonus-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .limited-tag {
+            background: #00D632;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        .bonus-time {
+            color: #00FF41;
+            font-weight: bold;
+        }
+
+        .bonus-content {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .pro-tip {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .start-button {
+            background: #00D632;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-button:hover {
+            background: #00FF41;
+        }
+
+        .secure-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .notification {
+                flex-wrap: wrap;
+            }
+            
+            .notification .time {
+                margin-left: 0;
+                width: 100%;
+                text-align: right;
+            }
         }
     </style>
 </head>
@@ -133,8 +296,74 @@
 
     <!-- Main Lander Section -->
     <div class="mainlander">
-        <img src="https://i.imgur.com/fjBfl8X.png" alt="Cash" class="logo">
-        <h1 class="main-heading">Get started below to claim your Cash reward</h1>
+        <div class="container">
+            <div class="notification" id="notification">
+                <span class="money">💸</span>
+                <span><span id="notif-name"></span> completed <span id="notif-deals"></span> deals and</span>
+                <span class="earned">earned $<span id="notif-amount"></span></span>
+                <span class="time">· <span id="notif-time"></span></span>
+            </div>
+
+            <img src="https://i.imgur.com/fjBfl8X.png" alt="Cash" class="logo">
+
+            <h1>Get started below to claim your Cash reward</h1>
+
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+                <div class="progress-amount">$750</div>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-check">✓</div>
+                    <div class="step-content">
+                        <h3>Click on "Start Earning Now"</h3>
+                        <p>(The button below)</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-check">✓</div>
+                    <div class="step-content">
+                        <h3>Provide a valid email address</h3>
+                        <p>(For notifications and rewards)</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-check">✓</div>
+                    <div class="step-content">
+                        <h3>Complete at least 2-5 suggested deals</h3>
+                        <p>Most people get $500+ in Cash deposits completing just a few deals!</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-check">✓</div>
+                    <div class="step-content">
+                        <h3>Claim your deposit & repeat anytime</h3>
+                        <p>Many top users complete multiple deals for bonus payouts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-header">
+                    <span>⏰</span>
+                    <span class="bonus-time">Exclusive offer expires in <span id="countdown">10:00</span></span>
+                    <span class="limited-tag">🔥 LIMITED TIME</span>
+                </div>
+                <div class="bonus-content">
+                    🎯 First Day Bonus! Complete any 2-5 suggested deals in your first 24 hours and unlock up to a $300 Bonus!
+                </div>
+                <div class="pro-tip">
+                    💡 Pro strategy: Focus on beginner-friendly deals first. Most new players hit $250+ in their first day by completing suggested offers. Play daily to keep your streaks going to earn even more!
+                </div>
+            </div>
+
+            <button class="start-button" onclick="window.location.href='[YOUR_REDIRECT_URL]'">
+                START EARNING NOW
+            </button>
+
+            <div class="secure-text">🔒 Secure & Confidential</div>
+        </div>
     </div>
 
     <script>
@@ -162,9 +391,62 @@
             }, 1000);
         }
 
+        // Notification functionality
+        const names = [
+            "James", "Emma", "Michael", "Sophia", "William", "Olivia", "John", "Ava",
+            "David", "Isabella", "Richard", "Mia", "Joseph", "Charlotte", "Thomas"
+        ];
+
+        function generateAmount() {
+            return (Math.random() * (750 - 500) + 500).toFixed(2);
+        }
+
+        function generateTime() {
+            const times = ["just now", "1 minute ago", "2 minutes ago", "3 minutes ago", "5 minutes ago"];
+            return times[Math.floor(Math.random() * times.length)];
+        }
+
+        function updateNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.opacity = '0';
+
+            setTimeout(() => {
+                document.getElementById('notif-name').textContent = names[Math.floor(Math.random() * names.length)];
+                document.getElementById('notif-amount').textContent = generateAmount();
+                document.getElementById('notif-time').textContent = generateTime();
+                document.getElementById('notif-deals').textContent = Math.floor(Math.random() * 3) + 2;
+                notification.style.opacity = '1';
+            }, 500);
+        }
+
+        function startCountdown() {
+            let minutes = 10;
+            let seconds = 0;
+            
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(timer);
+                        return;
+                    }
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+                
+                countdownElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
         function showMainLander() {
             document.querySelector('.prelander').classList.remove('active');
             document.querySelector('.mainlander').classList.add('active');
+            updateNotification();
+            setInterval(updateNotification, 4000);
+            startCountdown();
         }
 
         // Start timer when page loads

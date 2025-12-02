@@ -24,6 +24,10 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .timer-box {
@@ -85,6 +89,7 @@
         /* Main Lander Styles */
         .mainlander {
             display: none;
+            min-height: 100vh;
         }
 
         .container {
@@ -260,10 +265,6 @@
             font-size: 14px;
         }
 
-        .active {
-            display: block;
-        }
-
         @media (max-width: 480px) {
             .notification {
                 flex-wrap: wrap;
@@ -279,7 +280,7 @@
 </head>
 <body>
     <!-- Prelander Section -->
-    <div class="prelander active">
+    <div class="prelander">
         <div class="timer-box">
             <div class="label">OFFER EXPIRES</div>
             <div class="time" id="prelander-timer">29:30</div>
@@ -442,8 +443,9 @@
         }
 
         function showMainLander() {
-            document.querySelector('.prelander').classList.remove('active');
-            document.querySelector('.mainlander').classList.add('active');
+            document.querySelector('.prelander').style.display = 'none';
+            document.querySelector('.mainlander').style.display = 'block';
+            window.scrollTo(0, 0);
             updateNotification();
             setInterval(updateNotification, 4000);
             startCountdown();

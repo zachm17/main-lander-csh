@@ -23,7 +23,6 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
-            display: none;
         }
 
         .timer-box {
@@ -89,10 +88,9 @@
         }
 
         .active {
-            display: block !important;
+            display: block;
         }
 
-        /* Main lander notification styles */
         .notification {
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
@@ -123,6 +121,12 @@
             margin: 20px auto;
             display: block;
         }
+
+        h1 {
+            text-align: center;
+            color: #00D632;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -151,7 +155,8 @@
             <span class="time">· <span id="notif-time"></span></span>
         </div>
 
-        <!-- [Rest of your main lander content] -->
+        <img src="https://i.imgur.com/fjBfl8X.png" alt="Cash" class="logo">
+        <h1>Get started below to claim your Cash reward</h1>
     </div>
 
     <script>
@@ -210,9 +215,8 @@
         function showMainLander() {
             document.querySelector('.prelander').classList.remove('active');
             document.querySelector('.mainlander').classList.add('active');
-            // Start notifications only after switching to main lander
-            setTimeout(updateNotification, 100); // Initial notification
-            setInterval(updateNotification, 4000); // Recurring notifications
+            setTimeout(updateNotification, 100);
+            setInterval(updateNotification, 4000);
         }
 
         // Start timer when page loads

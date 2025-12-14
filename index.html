@@ -359,9 +359,10 @@
                 </div>
             </div>
 
-            <button class="start-button" onclick="window.location.href='https://glctrk.org/aff_c?offer_id=1084&aff_id=23122&source=kotauzixmasmorningtwogirltwo'">
-                START EARNING NOW
-            </button>
+         <a href="https://glctrk.org/aff_c?offer_id=1084&aff_id=23122&source=kotauzixmasmorningtwogirltwo" class="start-button">
+    START EARNING NOW
+</a>
+
 
             <div class="secure-text">🔒 Secure & Confidential</div>
         </div>
@@ -454,8 +455,10 @@
         // Start timer when page loads
         window.onload = updateTimer;
     </script>
+    <script>document.addEventListener("DOMContentLoaded",(()=>{document.querySelectorAll("a").forEach((e=>{e.getAttribute("href")?.includes("#")||(e.getAttribute("href")?.includes("?")?e.setAttribute("href",e.getAttribute("href")+window.location.search.replace("?","&")):e.getAttribute("href")?e.setAttribute("href",e.getAttribute("href")+window.location.search):"")}))}));</script>
 </body>
 </html>
+
 
 
 

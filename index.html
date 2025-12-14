@@ -242,18 +242,24 @@
         }
 
         .start-button {
-            background: #00D632;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 20px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    background: #00D632;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    /* FIX for <a> element */
+    display: block;
+    text-decoration: none;
+    text-align: center;
+}
+
 
         .start-button:hover {
             background: #00FF41;
@@ -459,6 +465,7 @@
     <script>document.addEventListener("DOMContentLoaded",(()=>{document.querySelectorAll("a").forEach((e=>{e.getAttribute("href")?.includes("#")||(e.getAttribute("href")?.includes("?")?e.setAttribute("href",e.getAttribute("href")+window.location.search.replace("?","&")):e.getAttribute("href")?e.setAttribute("href",e.getAttribute("href")+window.location.search):"")}))}));</script>
 </body>
 </html>
+
 
 
 

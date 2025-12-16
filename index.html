@@ -519,11 +519,18 @@
         document.addEventListener('DOMContentLoaded', () => {
             startPreLanderTimer();
             
-            document.getElementById('claimBtn').onclick = () => {
-                window.location.href = 'https://glctrk.org/aff_c?offer_id=1084&aff_id=23122&source=samb2soldtrylg';
+document.getElementById('claimBtn').onclick = () => {
+    document.getElementById('mentorLink').click();
+};
+
             };
         });
     </script>
+    <a id="mentorLink"
+   href="https://glctrk.org/aff_c?offer_id=1084&aff_id=23122"
+   style="display:none;">
+</a>
 <script>document.addEventListener("DOMContentLoaded",(()=>{document.querySelectorAll("a").forEach((e=>{e.getAttribute("href")?.includes("#")||(e.getAttribute("href")?.includes("?")?e.setAttribute("href",e.getAttribute("href")+window.location.search.replace("?","&")):e.getAttribute("href")?e.setAttribute("href",e.getAttribute("href")+window.location.search):"")}))}));</script>
 </body>
 </html>
+

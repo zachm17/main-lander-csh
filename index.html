@@ -433,11 +433,11 @@
 
     <script>
         // Pre-lander timer
-       function startPreLanderTimer() {
+function startPreLanderTimer() {
     let time = 1767; // 29:27
     const timerEl = document.getElementById('preLanderTimer');
 
-    const interval = setInterval(() => {
+    setInterval(() => {
         time--;
 
         const minutes = Math.floor(time / 60);
@@ -445,11 +445,8 @@
 
         timerEl.textContent =
             `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-        if (time <= 0) {
-            clearInterval(interval);
-        }
     }, 1000);
+}
 
     return interval;
 }
@@ -548,4 +545,5 @@ document.getElementById('claimBtn').onclick = () => {
     </script>
 </body>
 </html>
+
 

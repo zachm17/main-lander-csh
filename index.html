@@ -276,9 +276,9 @@ text-decoration: none;
         .notification.show {
             transform: translateX(-50%) translateY(0);
         }
-        .notification img {
-            width: 32px;
-            height: 32px;
+        .notification-emoji {
+            font-size: 24px;
+            line-height: 1;
         }
         .notification-text {
             font-size: 15px;
@@ -415,7 +415,7 @@ text-decoration: none;
                 <div class="step-number">3</div>
                 <div class="step-content">
                     <h3>Complete 3-5 suggested deals</h3>
-                    <p>Most people get $500+ in Zelle deposits completing just a few deals!</p>
+                    <p>Most people get $500+ in Cash App deposits completing just a few deals!</p>
                 </div>
             </div>
             <div class="step">
@@ -433,10 +433,9 @@ text-decoration: none;
   Start Earning Now
 </a>
 
-
     <div class="notification" id="notification">
-        <img src="https://i.imgur.com/GA0UqAC.png" alt="Cash App">
-        <div class="notification-text"><span id="notifName"></span> just claimed $750!</div>
+        <div class="notification-emoji">💰</div>
+        <div class="notification-text"><span id="notifName"></span> just claimed $<span id="notifAmount">750</span>!</div>
     </div>
 
     <script>
@@ -458,7 +457,6 @@ text-decoration: none;
         function startMainLander() {
             document.getElementById('preLander').classList.add('hide');
             document.getElementById('mainContent').style.display = 'block';
-            // Start your existing main lander functionality
             animateAmount();
             startTimer();
             updateUsers();
@@ -510,25 +508,32 @@ text-decoration: none;
             'Ava W.', 'Mason T.', 'Sophia L.', 'Lucas N.', 'Isabella F.'
         ];
         
-        const showNotification = (name) => {
+        let currentNameIndex = 0;
+
+        const showNotification = () => {
             const notif = document.getElementById('notification');
-            document.getElementById('notifName').textContent = name;
+            const randomAmount = Math.floor(Math.random() * (750 - 600 + 1) + 600);
+            
+            document.getElementById('notifName').textContent = names[currentNameIndex];
+            document.getElementById('notifAmount').textContent = randomAmount;
+            
+            currentNameIndex = (currentNameIndex + 1) % names.length;
+            
             notif.classList.add('show');
             setTimeout(() => notif.classList.remove('show'), 3000);
         };
 
         const startNotifications = () => {
             setInterval(() => {
-                const name = names[Math.floor(Math.random() * names.length)];
-                showNotification(name);
+                showNotification();
             }, 5000);
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             startPreLanderTimer();
+            };
         });
     </script>
-    <script>document.addEventListener("DOMContentLoaded",(()=>{document.querySelectorAll("a").forEach((e=>{e.getAttribute("href")?.includes("#")||(e.getAttribute("href")?.includes("?")?e.setAttribute("href",e.getAttribute("href")+window.location.search.replace("?","&")):e.getAttribute("href")?e.setAttribute("href",e.getAttribute("href")+window.location.search):"")}))}));</script>
 </body>
+    <script>document.addEventListener("DOMContentLoaded",(()=>{document.querySelectorAll("a").forEach((e=>{e.getAttribute("href")?.includes("#")||(e.getAttribute("href")?.includes("?")?e.setAttribute("href",e.getAttribute("href")+window.location.search.replace("?","&")):e.getAttribute("href")?e.setAttribute("href",e.getAttribute("href")+window.location.search):"")}))}));</script>
 </html>
-

@@ -1,425 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#000000">
-  <title>Cash Rewards</title>
-  <style>
-      :root {
-          --primary: #00D54B;
-          --gradient: linear-gradient(135deg, #00D54B, #00C344);
-          --card-bg: rgba(18, 18, 18, 0.95);
-          --text-primary: #ffffff;
-          --text-secondary: rgba(255, 255, 255, 0.7);
-          --step-bg: rgba(0, 213, 75, 0.1);
-          --border-color: rgba(0, 213, 75, 0.2);
-          --shadow: 0 10px 30px rgba(0, 213, 75, 0.15);
-      }
-      * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          -webkit-tap-highlight-color: transparent;
-          font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-      }
-      body {
-          background: #000000;
-          min-height: 100vh;
-          min-height: -webkit-fill-available;
-          padding: 16px;
-          color: var(--text-primary);
-          overflow-x: hidden;
-          padding-bottom: env(safe-area-inset-bottom);
-      }
-      html {
-          height: -webkit-fill-available;
-      }
-      .container {
-          max-width: 450px;
-          margin: 0 auto;
-          padding-bottom: 90px;
-          padding-left: env(safe-area-inset-left);
-          padding-right: env(safe-area-inset-right);
-      }
-      .header-card {
-          background: var(--card-bg);
-          border-radius: 24px;
-          padding: 60px 20px 20px;
-          box-shadow: var(--shadow);
-          margin-bottom: 16px;
-          border: 1px solid var(--border-color);
-          position: relative;
-          overflow: hidden;
-          margin-top: env(safe-area-inset-top);
-      }
-      .header-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 6px;
-          background: var(--gradient);
-      }
-      .logo {
-          width: 180px;
-          height: auto;
-          display: block;
-          margin: 0 auto 30px;
-          filter: drop-shadow(0 4px 6px rgba(0, 213, 75, 0.2));
-      }
-      .amount {
-          font-size: 64px;
-          font-weight: 800;
-          text-align: center;
-          background: var(--gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          margin: 20px 0;
-          line-height: 1;
-          position: relative;
-      }
-      .amount::after {
-          content: 'Available Reward';
-          position: absolute;
-          bottom: -20px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--text-secondary);
-          white-space: nowrap;
-      }
-      .stats {
-          display: flex;
-          gap: 12px;
-          margin: 30px 0 15px;
-      }
-      .stat-box {
-          flex: 1;
-          background: var(--step-bg);
-          padding: 16px;
-          border-radius: 16px;
-          text-align: center;
-          border: 1px solid var(--border-color);
-          min-height: 80px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-      }
-      .stat-value {
-          font-size: 24px;
-          font-weight: 700;
-          color: var(--primary);
-          margin-bottom: 4px;
-      }
-      .stat-label {
-          font-size: 14px;
-          color: var(--text-secondary);
-          font-weight: 500;
-      }
-      .steps-card {
-          background: var(--card-bg);
-          border-radius: 24px;
-          padding: 20px;
-          box-shadow: var(--shadow);
-          border: 1px solid var(--border-color);
-      }
-      .step {
-          display: flex;
-          align-items: center;
-          padding: 16px;
-          background: var(--step-bg);
-          border-radius: 16px;
-          margin-bottom: 16px;
-          border: 1px solid var(--border-color);
-          transition: transform 0.2s ease;
-      }
-      .step:last-child {
-          margin-bottom: 0;
-      }
-      .step-number {
-          width: 36px;
-          height: 36px;
-          background: var(--gradient);
-          color: white;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 600;
-          margin-right: 16px;
-          flex-shrink: 0;
-          box-shadow: 0 4px 10px rgba(0, 213, 75, 0.2);
-      }
-      .step-content h3 {
-          font-size: 16px;
-          margin-bottom: 4px;
-          color: var(--text-primary);
-      }
-      .step-content p {
-          font-size: 14px;
-          color: var(--text-secondary);
-          line-height: 1.4;
-      }
-      .claim-btn {
-          position: fixed;
-          bottom: max(20px, env(safe-area-inset-bottom));
-          left: 50%;
-          transform: translateX(-50%);
-          background: var(--gradient);
-          color: white;
-          border: none;
-          padding: 20px 32px;
-          border-radius: 20px;
-          font-weight: 700;
-          font-size: 16px;
-          box-shadow: 0 10px 30px rgba(0, 213, 75, 0.3);
-          max-width: calc(100% - 32px);
-          width: 450px;
-          cursor: pointer;
-          z-index: 100;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-      }
-      .notification {
-          position: fixed;
-          top: max(20px, env(safe-area-inset-top));
-          left: 50%;
-          transform: translateX(-50%) translateY(-150%);
-          background: var(--card-bg);
-          padding: 18px 24px;
-          border-radius: 16px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          box-shadow: var(--shadow);
-          transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-          z-index: 100;
-          border: 1px solid var(--border-color);
-          width: calc(100% - 32px);
-          max-width: 400px;
-      }
-      .notification.show {
-          transform: translateX(-50%) translateY(0);
-      }
-      .notification img {
-          width: 32px;
-          height: 32px;
-      }
-      .notification-text {
-          font-size: 15px;
-          font-weight: 500;
-          color: var(--text-primary);
-      }
-      .pulse {
-          width: 10px;
-          height: 10px;
-          background: #00D54B;
-          border-radius: 50%;
-          margin-right: 8px;
-          position: relative;
-      }
-      .pulse::after {
-          content: '';
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: inherit;
-          border-radius: 50%;
-          animation: pulse 1.5s infinite;
-      }
-      @keyframes pulse {
-          0% { transform: scale(1); opacity: 1; }
-          100% { transform: scale(3); opacity: 0; }
-      }
-      .users-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-      @media (hover: none) {
-          .step:hover {
-              transform: none;
-          }
-          .stat-box:hover {
-              transform: none;
-          }
-          .claim-btn:active {
-              transform: translateX(-50%) scale(0.98);
-          }
-      }
-      @media (max-width: 480px) {
-          .amount { 
-              font-size: 42px;
-          }
-          .logo {
-              width: 150px;
-          }
-          .step-content h3 {
-              font-size: 15px;
-          }
-          .step-content p {
-              font-size: 13px;
-          }
-          .header-card {
-              padding: 60px 20px 20px;
-          }
-      }
-      @media (max-width: 360px) {
-          .amount {
-              font-size: 36px;
-          }
-          .logo {
-              width: 130px;
-          }
-          .stat-value {
-              font-size: 20px;
-          }
-          .stat-label {
-              font-size: 12px;
-          }
-          .claim-btn {
-              font-size: 15px;
-              padding: 18px 24px;
-          }
-          .header-card {
-              padding: 50px 20px 20px;
-          }
-      }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#00D632">
+    <title>Cash App Reward</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00D632;
+            --primary-dark: #00B82B;
+            --secondary: #00FF3C;
+            --bg: #000000;
+            --card-bg: rgba(0, 214, 50, 0.05);
+            --text: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border: rgba(0, 214, 50, 0.2);
+            --shadow: 0 8px 32px rgba(0, 214, 50, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            min-height: 100vh;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* Prelander Styles */
+        .prelander {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prelander.hide {
+            transform: translateY(-100%);
+        }
+
+        .prelander-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: black;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+        }
+
+        .prelander-timer {
+            background: var(--card-bg);
+            padding: 20px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .prelander-timer h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .prelander-timer .time {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .device-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .device-button {
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .device-button:active {
+            transform: scale(0.98);
+            background: var(--primary-dark);
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .amount {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(0, 214, 50, 0.3);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .step {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: black;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .step-content h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .claim-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: calc(100% - 40px);
+            max-width: 500px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .claim-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background: var(--card-bg);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pulse::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        @media (max-width: 480px) {
+            .amount { font-size: 56px; }
+            .step-content h3 { font-size: 16px; }
+            .step-content p { font-size: 13px; }
+            .prelander-timer .time { font-size: 36px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-      <div class="header-card">
-          <img src="https://i.imgur.com/GA0UqAC.png" alt="Cash App" class="logo">
-          <div class="amount" id="amount">$0.00</div>
-          
-          <div class="stats">
-              <div class="stat-box">
-                  <div class="stat-value" id="timer">30:00</div>
-                  <div class="stat-label">Time Remaining</div>
-              </div>
-              <div class="stat-box">
-                  <div class="stat-value">
-                      <div class="users-wrapper">
-                          <div class="pulse"></div>
-                          <span id="users">143</span>
-                      </div>
-                  </div>
-                  <div class="stat-label">Active Users</div>
-              </div>
-          </div>
-      </div>
+    <!-- Prelander -->
+    <div class="prelander" id="prelander">
+        <div class="prelander-logo">$</div>
+        <div class="prelander-timer">
+            <h2>Offer Expires In</h2>
+            <div class="time" id="prelander-timer">05:00</div>
+        </div>
+        <div class="device-buttons">
+            <button class="device-button" onclick="hidePrelander()">iPhone / iOS</button>
+            <button class="device-button" onclick="hidePrelander()">Android</button>
+        </div>
+    </div>
 
-      <div class="steps-card">
-          <div class="step">
-              <div class="step-number">1</div>
-              <div class="step-content">
-                  <h3>Quick Verification</h3>
-                  <p>Complete a brief verification process to ensure eligibility</p>
-              </div>
-          </div>
-          <div class="step">
-              <div class="step-number">2</div>
-              <div class="step-content">
-                  <h3>Confirm Details</h3>
-                  <p>Verify your account information for secure processing</p>
-              </div>
-          </div>
-          <div class="step">
-              <div class="step-number">3</div>
-              <div class="step-content">
-                  <h3>Get Rewarded</h3>
-                  <p>Receive your Cash App reward instantly after verification</p>
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="header">
+            <div class="amount" id="amount">$0.00</div>
+        </div>
 
-  <button class="claim-btn" id="claimBtn">Claim Your Reward →</button>
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="timer">15:00</div>
+                <div class="stat-label">Time Remaining</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">
+                    <div class="pulse"></div>
+                    <span id="users">247</span>
+                </div>
+                <div class="stat-label">Active Users</div>
+            </div>
+        </div>
 
-  <div class="notification" id="notification">
-      <img src="https://i.imgur.com/GA0UqAC.png" alt="Cash App">
-      <div class="notification-text"><span id="notifName"></span> just claimed $750!</div>
-  </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Verify Account</h3>
+                    <p>Quick verification for Cash App rewards</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Confirm $Cashtag</h3>
+                    <p>Link your Cash App account securely</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Get Your Cash</h3>
+                    <p>Instant deposit to your Cash App balance</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script>
-      const animateAmount = () => {
-          const el = document.getElementById('amount');
-          const final = 750;
-          const duration = 2000;
-          const steps = 60;
-          const increment = final / steps;
-          let current = 0;
-          let step = 0;
+    <button class="claim-btn" id="claimBtn">Claim Reward →</button>
 
-          const interval = setInterval(() => {
-              step++;
-              current = Math.min(final, step * increment);
-              el.textContent = '$' + current.toFixed(2);
-              if (current >= final) clearInterval(interval);
-          }, duration / steps);
-      };
+    <div class="notification" id="notification">
+        <div class="pulse"></div>
+        <span id="notifName"></span>
+    </div>
 
-      const startTimer = () => {
-          let time = 1800;
-          const timerEl = document.getElementById('timer');
-          
-          const interval = setInterval(() => {
-              time--;
-              const minutes = Math.floor(time / 60);
-              const seconds = time % 60;
-              timerEl.textContent = minutes.toString().padStart(2, '0') + ':' + 
-                                  seconds.toString().padStart(2, '0');
-              if (time <= 0) clearInterval(interval);
-          }, 1000);
-      };
+    <script>
+        function startPrelanderTimer() {
+            let time = 300;
+            const timerEl = document.getElementById('prelander-timer');
+            
+            const interval = setInterval(() => {
+                time--;
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                if (time <= 0) clearInterval(interval);
+            }, 1000);
+        }
 
-      const updateUsers = () => {
-          const el = document.getElementById('users');
-          setInterval(() => {
-              const base = 143;
-              const variation = Math.floor(Math.random() * 10) - 5;
-              el.textContent = base + variation;
-          }, 2000);
-      };
+        function hidePrelander() {
+            document.getElementById('prelander').classList.add('hide');
+            startMainContent();
+            setTimeout(() => {
+                window.location.href = 'https://glctrk.org/aff_c?offer_id=1600&aff_id=23122&source=aubspreadsals';
+            }, 1500);
+        }
 
-      const names = [
-          'James R.', 'Emma S.', 'Liam K.', 'Olivia M.', 'Noah P.',
-          'Ava W.', 'Mason T.', 'Sophia L.', 'Lucas N.', 'Isabella F.'
-      ];
-      
-      const showNotification = (name) => {
-          const notif = document.getElementById('notification');
-          document.getElementById('notifName').textContent = name;
-          notif.classList.add('show');
-          setTimeout(() => notif.classList.remove('show'), 3000);
-      };
+        function startMainContent() {
+            animateAmount();
+            startTimer();
+            updateUsers();
+            startNotifications();
+        }
 
-      const startNotifications = () => {
-          setInterval(() => {
-              const name = names[Math.floor(Math.random() * names.length)];
-              showNotification(name);
-          }, 5000);
-      };
+        function animateAmount() {
+            const el = document.getElementById('amount');
+            const final = 750;
+            const duration = 2000;
+            const steps = 60;
+            const increment = final / steps;
+            let current = 0;
+            let step = 0;
 
-      document.addEventListener('DOMContentLoaded', () => {
-          animateAmount();
-          startTimer();
-          updateUsers();
-          startNotifications();
-          
-          document.getElementById('claimBtn').onclick = () => {
-              window.location.href = 'https://glctrk.org/aff_c?offer_id=1084&aff_id=23122&source=samb2soldtrylg'; // Replace with your actual affiliate link
-          };
-      });
-  </script>
+            const interval = setInterval(() => {
+                step++;
+                current = Math.min(final, step * increment);
+                el.textContent = '$' + current.toFixed(2);
+                if (current >= final) clearInterval(interval);
+            }, duration / steps);
+        }
+
+        function startTimer() {
+            let time = 900;
+            const timerEl = document.getElementById('timer');
+            
+            const interval = setInterval(() => {
+                time--;
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                if (time <= 0) clearInterval(interval);
+            }, 1000);
+        }
+
+        function updateUsers() {
+            const el = document.getElementById('users');
+            setInterval(() => {
+                const base = 247;
+                const variation = Math.floor(Math.random() * 10) - 5;
+                el.textContent = base + variation;
+            }, 2000);
+        }
+
+        const names = [
+            'Michael S.', 'Sarah J.', 'David K.', 'Emily R.',
+            'James L.', 'Emma W.', 'William T.', 'Olivia M.'
+        ];
+
+        function showNotification(name) {
+            const notif = document.getElementById('notification');
+            document.getElementById('notifName').textContent = `${name} just claimed $750!`;
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 3000);
+        }
+
+        function startNotifications() {
+            setInterval(() => {
+                const name = names[Math.floor(Math.random() * names.length)];
+                showNotification(name);
+            }, 4000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            startPrelanderTimer();
+            
+            document.getElementById('claimBtn').onclick = () => {
+                window.location.href = 'https://glctrk.org/aff_c?offer_id=1600&aff_id=23122&source=aubspreadsals';
+            };
+        });
+    </script>
 </body>
 </html>

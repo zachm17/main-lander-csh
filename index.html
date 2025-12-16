@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
     <title>Cash Rewards</title>
     <style>
-        /* Your existing styles remain the same */
-        /* Adding pre-lander specific styles */
+        /* Pre-lander specific styles */
         .pre-lander {
             position: fixed;
             top: 0;
@@ -28,8 +30,10 @@
             color: white;
             text-align: center;
             margin-bottom: 40px;
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         .pre-lander-timer {
             background: rgba(0, 213, 75, 0.1);
@@ -40,6 +44,7 @@
             font-weight: 700;
             margin-bottom: 60px;
             border: 1px solid rgba(0, 213, 75, 0.2);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         .device-selection {
             display: flex;
@@ -57,18 +62,45 @@
             font-size: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         .device-btn:hover {
             background: rgba(0, 213, 75, 0.2);
         }
-        .main-content {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+
+        /* Your original styles */
+        :root {
+            --primary: #00D54B;
+            --gradient: linear-gradient(135deg, #00D54B, #00C344);
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --step-bg: rgba(0, 213, 75, 0.1);
+            --border-color: rgba(0, 213, 75, 0.2);
+            --shadow: 0 10px 30px rgba(0, 213, 75, 0.15);
         }
-        .main-content.show {
-            opacity: 1;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        /* Rest of your existing styles remain unchanged */
+        body {
+            background: #000000;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 16px;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* Rest of your original styles remain exactly the same */
+        [Your original styles here...]
+
     </style>
 </head>
 <body>
@@ -82,12 +114,10 @@
         </div>
     </div>
 
-    <!-- Your existing main lander content wrapped in a div -->
-    <div class="main-content" id="mainContent">
-        <!-- Your existing content here -->
-        <div class="container">
-            <!-- Rest of your existing HTML remains unchanged -->
-        </div>
+    <!-- Your original HTML structure -->
+    <div class="container" id="mainContent" style="display: none;">
+        <!-- Your original HTML content exactly as it was -->
+        [Your original HTML content here...]
     </div>
 
     <script>
@@ -108,7 +138,7 @@
         // Function to transition to main lander
         function startMainLander() {
             document.getElementById('preLander').classList.add('hide');
-            document.getElementById('mainContent').classList.add('show');
+            document.getElementById('mainContent').style.display = 'block';
             // Start your existing main lander functionality
             animateAmount();
             startTimer();
@@ -121,8 +151,8 @@
             startPreLanderTimer();
         });
 
-        // Your existing JavaScript remains unchanged
-        // (animateAmount, startTimer, updateUsers, startNotifications, etc.)
+        // Your original JavaScript exactly as it was
+        [Your original JavaScript functions here...]
     </script>
 </body>
 </html>

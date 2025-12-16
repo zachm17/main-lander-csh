@@ -433,17 +433,26 @@
 
     <script>
         // Pre-lander timer
-        function startPreLanderTimer() {
-            let time = 1767; // 29:27 in seconds
-            const timerEl = document.getElementById('preLanderTimer');
-            
-            return setInterval(() => {
-                time--;
-                const minutes = Math.floor(time / 60);
-                const seconds = time % 60;
-                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                if (time <= 0) clearInterval(interval);
-            }, 1000);
+       function startPreLanderTimer() {
+    let time = 1767; // 29:27
+    const timerEl = document.getElementById('preLanderTimer');
+
+    const interval = setInterval(() => {
+        time--;
+
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+
+        timerEl.textContent =
+            `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (time <= 0) {
+            clearInterval(interval);
+        }
+    }, 1000);
+
+    return interval;
+}
         }
 
         // Function to transition to main lander
@@ -539,3 +548,4 @@ document.getElementById('claimBtn').onclick = () => {
     </script>
 </body>
 </html>
+

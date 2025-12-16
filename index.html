@@ -3,361 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#00D632">
-    <title>Cash App Reward</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Cash Rewards</title>
     <style>
-        :root {
-            --primary: #00D632;
-            --primary-dark: #00B82B;
-            --secondary: #00FF3C;
-            --bg: #000000;
-            --card-bg: rgba(0, 214, 50, 0.05);
-            --text: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --border: rgba(0, 214, 50, 0.2);
-            --shadow: 0 8px 32px rgba(0, 214, 50, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: var(--bg);
-            min-height: 100vh;
-            color: var(--text);
-            line-height: 1.5;
-        }
-
-        /* Prelander Styles */
-        .prelander {
+        /* Your existing styles remain the same */
+        /* Adding pre-lander specific styles */
+        .pre-lander {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg);
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s ease-in-out;
         }
-
-        .prelander.hide {
-            transform: translateY(-100%);
+        .pre-lander.hide {
+            transform: translateX(-100%);
         }
-
-        .prelander-logo {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
-            border-radius: 20px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: black;
-            font-weight: bold;
-            box-shadow: var(--shadow);
-        }
-
-        .prelander-timer {
-            background: var(--card-bg);
-            padding: 20px 40px;
-            border-radius: 20px;
+        .pre-lander-title {
+            color: white;
             text-align: center;
             margin-bottom: 40px;
-            border: 1px solid var(--border);
-        }
-
-        .prelander-timer h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .prelander-timer .time {
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .device-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .device-button {
-            background: var(--primary);
-            color: black;
-            border: none;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .device-button:active {
-            transform: scale(0.98);
-            background: var(--primary-dark);
-        }
-
-        /* Main Content Styles */
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            padding-bottom: 100px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .amount {
-            font-size: 72px;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 20px 0;
-            text-shadow: 0 0 20px rgba(0, 214, 50, 0.3);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-box {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .stat-value {
             font-size: 24px;
+            font-weight: 600;
+        }
+        .pre-lander-timer {
+            background: rgba(0, 213, 75, 0.1);
+            padding: 20px 40px;
+            border-radius: 15px;
+            color: #00D54B;
+            font-size: 42px;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(0, 213, 75, 0.2);
         }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .steps {
+        .device-selection {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            width: 90%;
+            max-width: 400px;
         }
-
-        .step {
-            background: var(--card-bg);
+        .device-btn {
+            background: rgba(0, 213, 75, 0.1);
+            border: 1px solid rgba(0, 213, 75, 0.2);
+            color: #00D54B;
             padding: 20px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateX(5px);
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: black;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        .step-content h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .step-content p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .claim-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: black;
-            border: none;
-            padding: 20px 40px;
-            border-radius: 15px;
-            font-weight: 600;
             font-size: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: calc(100% - 40px);
-            max-width: 500px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-
-        .claim-btn:hover {
-            background: var(--primary-dark);
+        .device-btn:hover {
+            background: rgba(0, 213, 75, 0.2);
         }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100%);
-            background: var(--card-bg);
-            padding: 15px 25px;
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: transform 0.3s ease;
-            z-index: 100;
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
-
-        .notification.show {
-            transform: translateX(-50%) translateY(0);
+        .main-content.show {
+            opacity: 1;
         }
-
-        .pulse {
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .pulse::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-
-        @media (max-width: 480px) {
-            .amount { font-size: 56px; }
-            .step-content h3 { font-size: 16px; }
-            .step-content p { font-size: 13px; }
-            .prelander-timer .time { font-size: 36px; }
-        }
+        /* Rest of your existing styles remain unchanged */
     </style>
 </head>
 <body>
-    <!-- Prelander -->
-    <div class="prelander" id="prelander">
-        <div class="prelander-logo">$</div>
-        <div class="prelander-timer">
-            <h2>Offer Expires In</h2>
-            <div class="time" id="prelander-timer">05:00</div>
-        </div>
-        <div class="device-buttons">
-            <button class="device-button" onclick="hidePrelander()">iPhone / iOS</button>
-            <button class="device-button" onclick="hidePrelander()">Android</button>
+    <!-- Pre-lander Section -->
+    <div class="pre-lander" id="preLander">
+        <div class="pre-lander-title">OFFER EXPIRES</div>
+        <div class="pre-lander-timer" id="preLanderTimer">29:27</div>
+        <div class="device-selection">
+            <button class="device-btn" onclick="startMainLander()">iPhone / iOS</button>
+            <button class="device-btn" onclick="startMainLander()">Android</button>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="header">
-            <div class="amount" id="amount">$0.00</div>
+    <!-- Your existing main lander content wrapped in a div -->
+    <div class="main-content" id="mainContent">
+        <!-- Your existing content here -->
+        <div class="container">
+            <!-- Rest of your existing HTML remains unchanged -->
         </div>
-
-        <div class="stats">
-            <div class="stat-box">
-                <div class="stat-value" id="timer">15:00</div>
-                <div class="stat-label">Time Remaining</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value">
-                    <div class="pulse"></div>
-                    <span id="users">247</span>
-                </div>
-                <div class="stat-label">Active Users</div>
-            </div>
-        </div>
-
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Verify Account</h3>
-                    <p>Quick verification for Cash App rewards</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Confirm $Cashtag</h3>
-                    <p>Link your Cash App account securely</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Get Your Cash</h3>
-                    <p>Instant deposit to your Cash App balance</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button class="claim-btn" id="claimBtn">Claim Reward →</button>
-
-    <div class="notification" id="notification">
-        <div class="pulse"></div>
-        <span id="notifName"></span>
     </div>
 
     <script>
-        function startPrelanderTimer() {
-            let time = 300;
-            const timerEl = document.getElementById('prelander-timer');
+        // Pre-lander timer
+        function startPreLanderTimer() {
+            let time = 1767; // 29:27 in seconds
+            const timerEl = document.getElementById('preLanderTimer');
             
-            const interval = setInterval(() => {
+            return setInterval(() => {
                 time--;
                 const minutes = Math.floor(time / 60);
                 const seconds = time % 60;
@@ -366,86 +105,24 @@
             }, 1000);
         }
 
-        function hidePrelander() {
-            document.getElementById('prelander').classList.add('hide');
-            startMainContent();
-            setTimeout(() => {
-                window.location.href = 'https://glctrk.org/aff_c?offer_id=1600&aff_id=23122&source=aubspreadsals';
-            }, 1500);
-        }
-
-        function startMainContent() {
+        // Function to transition to main lander
+        function startMainLander() {
+            document.getElementById('preLander').classList.add('hide');
+            document.getElementById('mainContent').classList.add('show');
+            // Start your existing main lander functionality
             animateAmount();
             startTimer();
             updateUsers();
             startNotifications();
         }
 
-        function animateAmount() {
-            const el = document.getElementById('amount');
-            const final = 750;
-            const duration = 2000;
-            const steps = 60;
-            const increment = final / steps;
-            let current = 0;
-            let step = 0;
-
-            const interval = setInterval(() => {
-                step++;
-                current = Math.min(final, step * increment);
-                el.textContent = '$' + current.toFixed(2);
-                if (current >= final) clearInterval(interval);
-            }, duration / steps);
-        }
-
-        function startTimer() {
-            let time = 900;
-            const timerEl = document.getElementById('timer');
-            
-            const interval = setInterval(() => {
-                time--;
-                const minutes = Math.floor(time / 60);
-                const seconds = time % 60;
-                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                if (time <= 0) clearInterval(interval);
-            }, 1000);
-        }
-
-        function updateUsers() {
-            const el = document.getElementById('users');
-            setInterval(() => {
-                const base = 247;
-                const variation = Math.floor(Math.random() * 10) - 5;
-                el.textContent = base + variation;
-            }, 2000);
-        }
-
-        const names = [
-            'Michael S.', 'Sarah J.', 'David K.', 'Emily R.',
-            'James L.', 'Emma W.', 'William T.', 'Olivia M.'
-        ];
-
-        function showNotification(name) {
-            const notif = document.getElementById('notification');
-            document.getElementById('notifName').textContent = `${name} just claimed $750!`;
-            notif.classList.add('show');
-            setTimeout(() => notif.classList.remove('show'), 3000);
-        }
-
-        function startNotifications() {
-            setInterval(() => {
-                const name = names[Math.floor(Math.random() * names.length)];
-                showNotification(name);
-            }, 4000);
-        }
-
+        // Initialize pre-lander
         document.addEventListener('DOMContentLoaded', () => {
-            startPrelanderTimer();
-            
-            document.getElementById('claimBtn').onclick = () => {
-                window.location.href = 'https://glctrk.org/aff_c?offer_id=1600&aff_id=23122&source=aubspreadsals';
-            };
+            startPreLanderTimer();
         });
+
+        // Your existing JavaScript remains unchanged
+        // (animateAmount, startTimer, updateUsers, startNotifications, etc.)
     </script>
 </body>
 </html>

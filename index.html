@@ -343,13 +343,7 @@
       </div>
   </div>
 
-<a
-  href="https://gloffers.org/aff_c?offer_id=3719&aff_id=23122"
-  class="claim-btn"
-  id="claimBtn"
->
-  Claim Your Reward →
-</a>
+  <button class="claim-btn" id="claimBtn">Claim Your Reward →</button>
 
   <div class="notification" id="notification">
       <img src="https://i.imgur.com/GA0UqAC.png" alt="Cash App">
@@ -357,6 +351,15 @@
   </div>
 
   <script>
+      // URL parameter passthrough function
+      const appendUrlParams = (baseUrl) => {
+          const params = window.location.search;
+          if (!params) return baseUrl;
+          return baseUrl.includes('?') 
+              ? baseUrl + params.replace('?', '&') 
+              : baseUrl + params;
+      };
+
       const animateAmount = () => {
           const el = document.getElementById('amount');
           const final = 750;
@@ -421,9 +424,12 @@
           startTimer();
           updateUsers();
           startNotifications();
+          
+          document.getElementById('claimBtn').onclick = () => {
+              const baseUrl = 'https://gloffers.org/aff_c?offer_id=3719&aff_id=23122';
+              window.location.href = appendUrlParams(baseUrl);
           };
       });
   </script>
 </body>
 </html>
-
